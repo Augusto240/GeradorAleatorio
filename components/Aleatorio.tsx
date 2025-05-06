@@ -10,17 +10,18 @@ const Aleatorio: React.FC<AleatorioProps> = ({ min, max }) => {
   const [numero, setNumero] = useState<number>(0);
 
   useEffect(() => {
-    const gerarNumero = () => {
+    if (max >= min) {
       const valor = Math.floor(Math.random() * (max - min + 1)) + min;
       setNumero(valor);
-    };
-    gerarNumero();
+    }
   }, [min, max]);
 
   return (
     <View style={styles.container}>
       <Text style={styles.text}>
-        Número aleatório entre {min} e {max}: {numero}
+        {max >= min
+          ? `Número aleatório entre ${min} e ${max}: ${numero}`
+          : 'Intervalo inválido'}
       </Text>
     </View>
   );
@@ -28,9 +29,8 @@ const Aleatorio: React.FC<AleatorioProps> = ({ min, max }) => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    marginVertical: 16,
     alignItems: 'center',
-    justifyContent: 'center',
   },
   text: {
     fontSize: 18,
